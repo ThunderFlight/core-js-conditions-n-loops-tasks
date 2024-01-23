@@ -21,8 +21,8 @@
  *  0  => true
  *  -5 => false
  */
-function isPositive(/* number */) {
-  throw new Error('Not implemented');
+function isPositive(number) {
+  return number >= 0;
 }
 
 /**
@@ -38,8 +38,14 @@ function isPositive(/* number */) {
  *  -5, 0, 5      => 5
  *  -0.1, 0, 0.2  => 0.2
  */
-function getMaxNumber(/* a, b, c */) {
-  throw new Error('Not implemented');
+function getMaxNumber(a, b, c) {
+  if (a > b && a > c) {
+    return a;
+  }
+  if (b > a && b > c) {
+    return b;
+  }
+  return c;
 }
 
 /**
@@ -60,8 +66,16 @@ function getMaxNumber(/* a, b, c */) {
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  */
-function canQueenCaptureKing(/* queen, king */) {
-  throw new Error('Not implemented');
+function canQueenCaptureKing(queen, king) {
+  if (
+    (queen.x === queen.y && king.x === king.y) ||
+    queen.x === king.x ||
+    (queen.x === king.y - 1 && queen.y === king.x + 1) ||
+    queen.y === king.y
+  ) {
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -82,8 +96,12 @@ function canQueenCaptureKing(/* queen, king */) {
  *  2, 2, 5   => false
  *  3, 0, 3   => false
  */
-function isIsoscelesTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isIsoscelesTriangle(a, b, c) {
+  return (
+    (a === b && a + b > c && c > 0) ||
+    (b === c && b + c > a && a > 0) ||
+    (a === c && a + c > b && b > 0)
+  );
 }
 
 /**
@@ -108,19 +126,81 @@ function convertToRomanNumerals(/* num */) {
  * Converts a number to a string, replacing digits with words.
  * In this task, the use of methods of the String and Array classes is not allowed.
  *
+
  * @param {string} numberStr - The number as a string.
+
  * @return {string} The number with digits replaced by words.
+
  *
+
  * @example:
+
  *  '1'       => 'one'
+
  *  '10'      => 'one zero'
  *  '-10'     => 'minus one zero'
  *  '10.5'    => 'one zero point five'
  *  '10,5'    => 'one zero point five'
  *  '1950.2'  => 'one nine five zero point two'
  */
-function convertNumberToString(/* numberStr */) {
-  throw new Error('Not implemented');
+function convertNumberToString(numberStr) {
+  let str = '';
+  for (let i = 0; i < numberStr.length; i += 1) {
+    switch (numberStr[i]) {
+      case '0':
+        str += 'zero ';
+        break;
+      case '1':
+        str += 'one ';
+        break;
+      case '2':
+        str += 'two ';
+        break;
+      case '3':
+        str += 'three ';
+        break;
+      case '4':
+        str += 'four ';
+        break;
+      case '5':
+        str += 'five ';
+        break;
+      case '6':
+        str += 'six ';
+        break;
+      case '7':
+        str += 'seven ';
+        break;
+      case '8':
+        str += 'eight ';
+        break;
+      case '9':
+        str += 'nine ';
+        break;
+      case '-':
+        str += 'minus ';
+        break;
+      case '+':
+        str += 'plus ';
+        break;
+      case '.':
+        str += 'point ';
+        break;
+      case ',':
+        str += 'point ';
+        break;
+      default:
+        str += '';
+        break;
+    }
+  }
+
+  let copy = '';
+  for (let i = 0; i < str.length - 1; i += 1) {
+    copy += str[i];
+  }
+
+  return copy;
 }
 
 /**
@@ -135,8 +215,12 @@ function convertNumberToString(/* numberStr */) {
  *  '0123210'   => true
  *  'qweqwe'    => false
  */
-function isPalindrome(/* str */) {
-  throw new Error('Not implemented');
+function isPalindrome(str) {
+  let reverse = '';
+  for (let i = str.length - 1; i >= 0; i -= 1) {
+    reverse += str[i];
+  }
+  return str === reverse;
 }
 
 /**
@@ -153,8 +237,13 @@ function isPalindrome(/* str */) {
  *  'qwerty', 'Q'     => -1
  *  'qwerty', 'p'     => -1
  */
-function getIndexOf(/* str, letter */) {
-  throw new Error('Not implemented');
+function getIndexOf(str, letter) {
+  for (let i = 0; i < str.length; i += 1) {
+    if (str[i] === letter) {
+      return i;
+    }
+  }
+  return -1;
 }
 
 /**
@@ -172,8 +261,13 @@ function getIndexOf(/* str, letter */) {
  *  12345, 0    => false
  *  12345, 6    => false
  */
-function isContainNumber(/* num, digit */) {
-  throw new Error('Not implemented');
+function isContainNumber(num, digit) {
+  for (let i = 0; i < `${num}`.length; i += 1) {
+    if (+`${num}`[i] === digit) {
+      return true;
+    }
+  }
+  return false;
 }
 
 /**
@@ -189,8 +283,27 @@ function isContainNumber(/* num, digit */) {
  *  [2, 3, 9, 5] => 2       => 2 + 3 === 5 then balance element is 9 and its index = 2
  *  [1, 2, 3, 4, 5] => -1   => no balance element
  */
-function getBalanceIndex(/* arr */) {
-  throw new Error('Not implemented');
+function getBalanceIndex(arr) {
+  let odd = 0;
+  if (arr.length % 2 === 0) {
+    odd = 1;
+  }
+  for (let j = 1; j < arr.length; j += 1) {
+    let firstItem = 0;
+    let secondItem = 0;
+
+    for (let i = 0; i < j; i += 1) {
+      firstItem += arr[i];
+    }
+
+    for (let i = arr.length - (j - odd); i < arr.length; i += 1) {
+      secondItem += arr[i];
+    }
+    if (firstItem === secondItem) {
+      return j;
+    }
+  }
+  return -1;
 }
 
 /**
@@ -214,9 +327,7 @@ function getBalanceIndex(/* arr */) {
  *          [10, 9,  8,  7]
  *        ]
  */
-function getSpiralMatrix(/* size */) {
-  throw new Error('Not implemented');
-}
+function getSpiralMatrix(/* size */) {}
 
 /**
  * Rotates a matrix by 90 degrees clockwise in place.
@@ -233,8 +344,32 @@ function getSpiralMatrix(/* size */) {
  *    [7, 8, 9]         [9, 6, 3]
  *  ]                 ]
  */
-function rotateMatrix(/* matrix */) {
-  throw new Error('Not implemented');
+function recursive(matri) {
+  const arr = [];
+  if (Array.isArray(matri)) {
+    for (let i = 0; i < matri.length; i += 1) {
+      if (Array.isArray(matri[i])) {
+        arr.push(recursive(matri[i]));
+      } else {
+        arr.push(matri[i]);
+      }
+    }
+  }
+  return arr;
+}
+function rotateMatrix(matrix) {
+  const copyMatrix = recursive(matrix);
+  const secondCopyMatrix = matrix;
+  let count = secondCopyMatrix.length - 1;
+  for (let i = 0; i < matrix.length; i += 1) {
+    for (let j = 0; j < matrix[i].length; j += 1) {
+      secondCopyMatrix[j][i] = copyMatrix[count][j];
+    }
+    if (count - 1 !== -1) {
+      count -= 1;
+    }
+  }
+  return secondCopyMatrix;
 }
 
 /**
@@ -251,25 +386,35 @@ function rotateMatrix(/* matrix */) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(/* arr */) {
-  throw new Error('Not implemented');
+function sortByAsc(array) {
+  const arr = array;
+  for (let i = 0; i < arr.length; i += 1) {
+    for (let j = 0; j < arr.length - i - 1; j += 1) {
+      if (arr[j] > arr[j + 1]) {
+        const copy = arr[j + 1];
+        arr[j + 1] = arr[j];
+        arr[j] = copy;
+      }
+    }
+  }
+  return arr;
 }
 
-/**
- * Shuffles characters in a string so that the characters with an odd index are moved to the end of the string at each iteration.
- * Take into account that the string can be very long and the number of iterations is large. Consider how you can optimize your solution.
- * Usage of Array class methods is not allowed in this task.
+/*
+ *Shuffles characters in a string so that the characters with an odd index are moved to the end of the string at each iteration.
+ *Take into account that the string can be very long and the number of iterations is large. Consider how you can optimize your solution.
+ *Usage of Array class methods is not allowed in this task.
  *
- * @param {string} str - The string to shuffle.
- * @param {number} iterations - The number of iterations to perform the shuffle.
- * @return {string} The shuffled string.
+ *@param {string} str - The string to shuffle.
+ *@param {number} iterations - The number of iterations to perform the shuffle.
+ *@return {string} The shuffled string.
  *
- * @example:
- *  '012345', 1 => '024135'
- *  'qwerty', 1 => 'qetwry'
- *  '012345', 2 => '024135' => '043215'
- *  'qwerty', 2 => 'qetwry' => 'qtrewy'
- *  '012345', 3 => '024135' => '043215' => '031425'
+ *@example:
+ * '012345', 1 => '024135'
+ * 'qwerty', 1 => 'qetwry'
+ * '012345', 2 => '024135' => '043215'
+ * 'qwerty', 2 => 'qetwry' => 'qtrewy'
+ * '012345', 3 => '024135' => '043215' => '031425'
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
 function shuffleChar(/* str, iterations */) {
